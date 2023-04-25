@@ -52,17 +52,17 @@ int partition(int *arr, int l, int r, size_t size)
 	{
 		if (arr[j] < pivot)
 		{
+			swap(&arr[i], &arr[j]);
 			if (i != j)
 			{
-				swap(&arr[i], &arr[j]);
 				print_array(arr, size);
 			}
 			++i;
 		}
 	}
+	swap(&arr[i], &arr[r]);
 	if (i != j)
 	{
-		swap(&arr[i], &arr[r]);
 		print_array(arr, size);
 	}
 	return (i);
