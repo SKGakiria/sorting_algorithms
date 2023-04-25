@@ -20,10 +20,8 @@ void insertion_sort_list(listint_t **list)
 	while (j)
 	{
 		i = *list;
-		while (1)
+		while (i != j)
 		{
-			if (i == j)
-				break;
 			if (i->n > j->n)
 			{
 				insert_node(list, j, i);
