@@ -1,6 +1,14 @@
 #include "sort.h"
 
 void insert_node(listint_t **list, listint_t *j, listint_t *i);
+
+/**
+* insertion_sort_list - function that sorts a doubly linked list of
+* integers in ascending order
+* @list: pointer to pointer at head of list
+*
+* Return: void
+*/
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *i, *j;
@@ -36,6 +44,14 @@ void insertion_sort_list(listint_t **list)
 	}
 }
 
+/**
+* insert_node - insert a node before another in a list
+* @list: pointer to pointer at head of list
+* @j: node to insert
+* @i: node before insertion
+*
+* Return: void
+*/
 void insert_node(listint_t **list, listint_t *j, listint_t *i)
 {
 	j->prev->next = j->next;
