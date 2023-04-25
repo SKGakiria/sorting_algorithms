@@ -1,5 +1,9 @@
 #include "sort.h"
 
+void swap(int *a, int *b);
+int partition(int *arr, int l, int r, size_t size);
+void quicksort_recursive(int *arr, int l, int r, size_t size);
+
 /**
  * quick_sort - function that sorts an array of integers in ascending order
  * @array: array of integers
@@ -7,59 +11,79 @@
  *
  * Return: void
  */
-
-void quick_sort(int *array, size_t size);
-void swap(int *a, int *b)
-{
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-int partition(int *arr, int l, int r)
-{
-    int pivot = arr[r];
-    int i = l;
-    for (int j = l; j < r; ++j) {
-        if (arr[j] < pivot) {
-            swap(&arr[i], &arr[j]);
-            ++i;
-        }
-    }
-    swap(&arr[i], &arr[r]);
-    return i;
-}
-
-void quicksort_recursive(int *arr, int l, int r)
-{
-    if (l >= r)
-        return;
-
-    int i = partition(arr, l, r);
-    for(int i = l; i <= r; i++)
-    {
-        printf("%d", arr[i]);
-    }
-    printf("\n");
-    quicksort_recursive(arr, l, i - 1);
-    quicksort_recursive(arr, i + 1, r);
-}
-
 void quick_sort(int *array, size_t size)
 {
-    quick_sort_recursive(array, 0, size - 1);
+	quicksort_recursive(array, 0, size - 1, size);
 }
 
-int main()
+/**
+ * swap - swap integers
+ * @a: integer pointer
+ * @b: integer pointer
+ *
+ * Return: void
+ */
+void swap(int *a, int *b)
 {
-    int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
-    size_t size = sizeof(array) / sizeof(array[0]);
-    quick_sort(array, size);
-    printf("Sorted array: ");
-    for (int i = 0; i < size; i++)
-    {
-        printf("%d ", array[i]);
-    }
-    printf("\n");
-    return 0;
+	int temp = *a;
+
+	*a = *b;
+	*b = temp;
+}
+
+/**
+ * partition - partition an array of integers
+ * @arr: integer array segment
+ * @l: start of segment
+ * @r: end of segment
+ * @size: size of array
+ *
+ * Return: partition index
+ */
+int partition(int *arr, int l, int r, size_t size)
+{
+	int pivot = arr[r];
+	int i = l, j;
+
+	for (j = l; j < r; ++j)
+	{
+		if (arr[j] < pivot)
+		{
+			swap(&arr[i], &arr[j]);
+/*			print_array(arr, size);*/
+			++i;
+		}
+	}
+	swap(&arr[i], &arr[r]);
+	print_array(arr, size);
+	return (i);
+}
+
+/**
+ * quicksort_recursive - implement quicksort algorithm
+ * @arr: integer array segment
+ * @l: start of segment
+ * @r: end of segment
+ * @size: size of array
+ *
+ * Return: void
+ */
+void quicksort_recursive(int *arr, int l, int r, size_t size)
+{
+	int i;
+
+	if (l >= r)
+		return;
+
+	i = partition(arr, l, r, size);
+	print_array(arr, size);
+/*
+*	for(i = l; i <= r; i++)
+*	{
+*		printf("%d", arr[i]);
+*	}
+*	printf("\n");
+*/
+	quicksort_recursive(arr, l, i - 1, size);
+	quicksort_recursive(arr, i + 1, r, size);
 }
