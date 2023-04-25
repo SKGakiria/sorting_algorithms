@@ -1,4 +1,5 @@
-#ifndef SORT_H /* SORT_H */
+#ifndef SORT_H
+
 #define SORT_H
 #include <stddef.h>
 /* STRUCTS */
