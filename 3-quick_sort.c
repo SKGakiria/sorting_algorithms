@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "sort.h"
 
 /**
@@ -9,8 +7,6 @@
  *
  * Return: void
  */
-
-#include <stdio.h>
 
 void quick_sort(int *array, size_t size);
 void swap(int *a, int *b)
