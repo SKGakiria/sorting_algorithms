@@ -46,7 +46,7 @@ void swap(int *a, int *b)
 int partition(int *arr, int l, int r, size_t size)
 {
 	int pivot = arr[r];
-	int i = l, j;
+	int i = l, j, k;
 
 	for (j = l; j < r; ++j)
 	{
@@ -55,6 +55,16 @@ int partition(int *arr, int l, int r, size_t size)
 			if (i != j)
 			{
 				swap(&arr[i], &arr[j]);
+				print_array(arr, size);
+			}
+			++i;
+		}
+		else if (arr[j] == pivot)
+		{
+			k = i;
+			if (k != j)
+			{
+				swap(&arr[j], &arr[k]);
 				print_array(arr, size);
 			}
 			++i;
