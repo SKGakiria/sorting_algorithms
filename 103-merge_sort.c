@@ -81,7 +81,7 @@ void td_merge(int *array, size_t start, size_t mid, size_t end, int *b)
 	size_t i = start, j = mid, k;
 
 	printf("Merging...\n");
-	printf("left]: ");
+	printf("[left]: ");
 	print_array(array + start, mid - start);
 	printf("[right]: ");
 	print_array(array + mid, end - mid);
