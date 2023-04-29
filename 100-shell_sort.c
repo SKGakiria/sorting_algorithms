@@ -24,12 +24,12 @@ void shell_sort(int *array, size_t size)
 	if (gaps == NULL)
 		return;
 /*
-	printf("Knuth sequence: [");
-	for (k = 0; gaps[k]; k++)
-		printf("%lu ", gaps[k]);
-	puts("]");
-
-*/	for (gap_idx = 0; gaps[gap_idx]; gap_idx++)
+*	printf("Knuth sequence: [");
+*	for (k = 0; gaps[k]; k++)
+*		printf("%lu ", gaps[k]);
+*	puts("]");
+*/
+	for (gap_idx = 0; gaps[gap_idx]; gap_idx++)
 	{
 		for (i = gaps[gap_idx]; i < size; i++)
 		{
