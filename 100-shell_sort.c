@@ -1,34 +1,27 @@
 #include "sort.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 size_t *knuth_seq(size_t size);
 
 /**
  * shell_sort - Sort an array of integers in ascending order using
  * the insertion sort algorithm.
+ *
  * @array: Pointer to the array to be sorted
  * @size: Size of array pointed to by @array
- *
- * Return: void.
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t i, j, *gaps;
-	int temp, gap_idx, k;
+	size_t i, j, gap_idx, *gaps;
+	int temp;
 
 	if (array == NULL || size < 2)
 		return;
 
 	gaps = knuth_seq(size);
 	if (gaps == NULL)
-		return;
-/*
-*	printf("Knuth sequence: [");
-*	for (k = 0; gaps[k]; k++)
-*		printf("%lu ", gaps[k]);
-*	puts("]");
-*/
+		exit(EXIT_FAILURE);
+
 	for (gap_idx = 0; gaps[gap_idx]; gap_idx++)
 	{
 		for (i = gaps[gap_idx]; i < size; i++)
@@ -55,33 +48,30 @@ void shell_sort(int *array, size_t size)
  */
 size_t *knuth_seq(size_t size)
 {
-	size_t i = 0, j = 1, k = 1, gap = 0, x;
-	size_t *gaps, temp;
+	size_t h = 0, i = 0, j = 0, *seq = NULL;
 
-	while (k < size)
+	while (1)
 	{
-		k = k * 3 + 1;
+		if ((h * 3 + 1) > (size / 3))
+			break;
+		h = h * 3 + 1;
 		i++;
 	}
 
-	gaps = malloc((i + 1) * sizeof(size_t));
-	if (gaps == NULL)
+	seq = calloc(i + 1, sizeof(size_t));
+	if (seq == NULL)
 		return (NULL);
 
-	gaps[0] = 0;
-	while (j < i)
+	while (1)
 	{
-		gap = gap * 3 + 1;
-		gaps[j] = gap;
+		seq[j] = h;
+		h = (h - 1) / 3;
+		i--;
 		j++;
+
+		if (i == 0)
+			break;
 	}
 
-	for (x = 0; x < (i + 1) / 2; x++)
-	{
-		temp = gaps[x];
-		gaps[x] = gaps[i - x];
-		gaps[i - x] = temp;
-	}
-
-	return (gaps);
+	return (seq);
 }
