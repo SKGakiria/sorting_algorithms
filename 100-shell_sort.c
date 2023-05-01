@@ -1,5 +1,6 @@
 #include "sort.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 size_t *knuth_seq(size_t size);
 
@@ -12,68 +13,28 @@ size_t *knuth_seq(size_t size);
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t i, j, gap_idx, *gaps;
+	size_t i, j, gap = 1;
 	int temp;
 
 	if (array == NULL || size < 2)
 		return;
 
-	gaps = knuth_seq(size);
-	if (gaps == NULL)
-		exit(EXIT_FAILURE);
-
-	for (gap_idx = 0; gaps[gap_idx]; gap_idx++)
+	while (gap < size / 3)
+		gap = gap * 3 + 1;
+	for (; gap >= 1; gap /= 3)
 	{
-		for (i = gaps[gap_idx]; i < size; i++)
+		for (i = gap; i < size; i++)
 		{
 			temp = array[i];
 
 			j = i;
-			while ((j >= gaps[gap_idx]) && (array[j - gaps[gap_idx]] > temp))
+			while ((j >= gap) && (array[j - gap] > temp))
 			{
-				array[j] = array[j - gaps[gap_idx]];
-				j -= gaps[gap_idx];
+				array[j] = array[j - gap];
+				j -= gap;
 			}
 			array[j] = temp;
 		}
 		print_array(array, size);
 	}
-
-	free(gaps);
-}
-
-/**
- * knuth_seq - generate a knuth sequence
- * @size: upper limit on the largest number in the sequence
- *
- * Return: pointer to the knuth sequence, or NULL (failure).
- */
-size_t *knuth_seq(size_t size)
-{
-	size_t h = 0, i = 0, j = 0, *seq = NULL;
-
-	while (1)
-	{
-		if ((h * 3 + 1) > (size / 3))
-			break;
-		h = h * 3 + 1;
-		i++;
-	}
-
-	seq = calloc(i + 1, sizeof(size_t));
-	if (seq == NULL)
-		return (NULL);
-
-	while (1)
-	{
-		seq[j] = h;
-		h = (h - 1) / 3;
-		i--;
-		j++;
-
-		if (i == 0)
-			break;
-	}
-
-	return (seq);
 }
